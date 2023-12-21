@@ -3,6 +3,7 @@
 -- and moves the cursor back one, making a jolt with the cursor
 return {
   "echasnovski/mini.pairs",
+  enabled = false,
   version = '*',
   init = function ()
     require("core.utils").lazy_load_on_bufent("mini.pairs")

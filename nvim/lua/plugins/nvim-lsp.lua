@@ -1,20 +1,45 @@
 return {
   "neovim/nvim-lspconfig",
-  dependencies = {"williamboman/mason-lspconfig.nvim", "williamboman/mason.nvim" },
+  dependencies = {"williamboman/mason-lspconfig.nvim", "hrsh7th/cmp-nvim-lsp" },
   init = function ()
     -- TODO: Create keymaps 
 
     require("core.utils").lazy_load_on_bufent("nvim-lspconfig")
 
     -- LspAttach creates the keymaps AFTER the lsp is created and attached
-   vim.api.nvim_create_autocmd({"LspAttach"}, {
+   --[[ vim.api.nvim_create_autocmd({"LspAttach"}, {
       group = vim.api.nvim_create_augroup("UserLspConfig", {}),
       callback = function (ev)
         vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
         local opts = { buffer = ev.buf }
 
-        require("core.utils").load_mappings({
+       
+      end
+    }) ]]--
+  end,
+  config = function ()
+    -- NOTE: setup lsp servers in mason-lspconfig to avoid creating multiple servers 
+		
+	--[[	local lsp_cap = require("cmp_nvim_lsp").default_capabilities()
+	local lsp_att = function (client, bufnr)
+		local bufopts = { noremap = true, silent = true, buffer = bufnr }
+
+		vim.keymap.set("n", 'K', vim.lsp.buf.hover, bufopts)
+		vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
+	end
+
+	local lspconfig = require('lspconfig')
+
+	lspconfig['tsserver'].setup({
+			capabilities = lsp_cap,
+			on_attach = lsp_att
+		
+})
+		]]--
+
+	local load_keymap = function (map_opts)
+		 require("core.utils").load_mappings({
           n = {
             ["gD"] = { function ()
               vim.lsp.buf.declaration()
@@ -121,15 +146,29 @@ return {
     },
 
           }
-        }, opts)
+        }, map_opts)
 
-      end
-    }) 
-  end,
-  config = function ()
-    -- NOTE: setup lsp servers in mason-lspconfig to avoid creating multiple servers 
+	end
 
+	local lsp_attach = function (client, bufnr)
+		local buf_opts = { noremap = true, silent = true, buffer = bufnr }
+		load_keymap(buf_opts)
+	end
 
+    local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+    -- Automatic LSP installer and setup 
+    -- check :h mason-lspconfig-automatic-server-setup
+    require("mason-lspconfig").setup_handlers({
+      -- default setup for installed lsps
+      function (server_name)
+        require("lspconfig")[server_name].setup({
+			on_attach = lsp_attach,
+			capabilities = lsp_capabilities
+		})
+      end,
+    })
+	
   end
 }
 

@@ -58,14 +58,3 @@ autocmd("FileType", {
     vim.opt_local.buflisted = false
   end
 })
-
--- Autoreload
-autocmd("BufWritePost", {
-  pattern = vim.tbl_map(function (path)
-    return vim.fs.normalize(vim.loop.fs_realpath(path))
-  end, vim.fn.glob(vim.fn.stdpath("config").."/**/*.lua", true, true, true)),
-  group = vim.api.nvim_create_augroup("ReloadConfig", {}),
-  callback = function ()
-    vim.notify("Restart NeoVim for changes to take effect", 2)
-  end
-})
