@@ -59,7 +59,7 @@ export.load_mappings = function (map, map_opts)
 
     local mappings = require("core.utils").load_config().mappings
 
-    local opts = map_opts or {}
+    local default_opts = map_opts or {}
     -- vim.notify(table_to_string(map))
     for mode, mode_values in pairs(map) do
       for keybind, mapping_info in pairs(mode_values) do
@@ -67,9 +67,10 @@ export.load_mappings = function (map, map_opts)
         -- if mappings[keybind] then
           -- vim.notify("Existing keybind found! Overwriting: " .. mapping_info[2], 4)
         -- else
-          local final_opts = vim.tbl_deep_extend("force", {desc = mapping_info[2], mode = nil}, opts)
-          vim.keymap.set(mode, keybind, mapping_info[1], final_opts)
-          mappings[keybind] = final_opts
+          local local_opts = vim.tbl_deep_extend("force", {desc = mapping_info[2], mode = nil}, default_opts)
+          local_opts = vim.tbl_deep_extend("force", local_opts, mapping_info.opts or {})
+          vim.keymap.set(mode, keybind, mapping_info[1], local_opts)
+          mappings[keybind] = local_opts
           -- vim.notify("Mode: " .. mode .. " Keybind: " .. keybind)
         -- end
       end

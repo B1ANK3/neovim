@@ -8,11 +8,9 @@ return {
     -- keymaps
     require('core.utils').load_mappings({
       n = {
-
-    -- moving around buffers
-    ["<tab>"] = {"<cmd>BufferNext<CR>", "Goto next buffer"},
-    ["<S-tab>"] = {"<cmd>BufferPrevious<CR>", "Goto previous buffer"},
-    ["<leader>x"] = {"<cmd>BufferClose<CR>", "Close buffer"}
+        ["<tab>"] = {"<cmd>BufferNext<CR>", "Goto next buffer"},
+        ["<S-tab>"] = {"<cmd>BufferPrevious<CR>", "Goto previous buffer"},
+        ["<leader>x"] = {"<cmd>BufferClose<CR>", "Close buffer"}
       }
     }, {
         noremap = true,
@@ -33,19 +31,26 @@ return {
       highlight_visable = true,
 
       icons = {
-        gitsigns = {
-          added = {enabled = true, icon = "+"},
-          changed = {enabled = true, icon = "~"},
-          deleted = {enabled = true, icon = "-"}
+        gitsigns =  {
+          added = { enabled = false, icon = "+" },
+          changed = { enabled = false, icon = "~" },
+          deleted = { enabled = false, icon = "-" }
         },
         filetype = {
+          custom_colors = true,
           enabled = true
         },
         separator = {left = "▎", right = ""},
         separator_at_end = true,
 
+        -- TODO: change to a smaller dot
         modified = {button = "●"},
+
         preset = "default",
+        current = { buffer_index = false, },
+        -- TODO: change button for close
+        inactive = { button = 'x' },
+        visible = { modified = { buffer_number = false } },
       },
 
       -- insert_at_end = true,

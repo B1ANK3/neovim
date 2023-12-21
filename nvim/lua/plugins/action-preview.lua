@@ -3,8 +3,9 @@ return {
   dependencies = {"nvim-telescope/telescope.nvim"},
   keys = {"<leader>ca"},
   init = function ()
+    -- Move actions-preview to nvim-lsp bindings as a dependency
    vim.api.nvim_create_autocmd({"LspAttach"}, {
-      group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+      group = vim.api.nvim_create_augroup("UserLspConfig_actions", {}),
       callback = function (ev)
         vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 

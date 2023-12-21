@@ -7,6 +7,8 @@
 return {
  "mfussenegger/nvim-dap",
   init = function ()
+
+    -- TODO: Check VSCode mappings
     require("core.utils").load_mappings({
       n = {
         ["<F5>"] = {
