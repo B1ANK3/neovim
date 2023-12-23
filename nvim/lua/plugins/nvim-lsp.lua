@@ -157,10 +157,22 @@ return {
 		end
 
 		local lsp_attach = function(client, bufnr)
+			client.server_capabilities.documentFormattingProvider = false
+			client.server_capabilities.documentRangeFormattingProvider = false
+
 			local buf_opts = { noremap = true, silent = true, buffer = bufnr }
 			load_keymap(buf_opts)
+
+			if client.server_capabilities.signatureHelpProvider then
+				--
+			end
+
+			if client.supports_method("textDocument/semanticTokens") then
+				client.server_capabilities.semanticTokensProvider = nil
+			end
 		end
 
+		-- https://github.com/stephane-klein/dotfiles/blob/c0d00c59b9b3f4a5318c261ad1e8876a3f8afeb4/dot_config/nvim/lua/lsp.lua#L22
 		local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 		-- Automatic LSP installer and setup

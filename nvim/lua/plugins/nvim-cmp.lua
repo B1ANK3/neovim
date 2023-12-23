@@ -36,10 +36,10 @@ return {
 			"hrsh7th/cmp-nvim-lsp",
 			"saadparwaiz1/cmp_luasnip",
 			"hrsh7th/cmp-buffer",
+			"hrsh7th/cmp-nvim-lua", -- nvim lua autocomplete
 			--[[ "FelipeLema/cmp-async-path"],
       "hrsh7th/cmp-nvim-lsp-signature-help",
       "JMarkin/cmp-diag-codes",
-      "hrsh7th/cmp-nvim-lua",
       "pontusk/cmp-sass-variables",
       {
         "saecki/crates.nvim",
@@ -64,6 +64,16 @@ return {
 
 			completion = { completeopt = "menu,menuone,noinsert" },
 
+			enabled = function()
+				-- disable cmp in comments
+				local context = require("cmp.config.context")
+				if vim.api.nvim_get_mode().mode == "c" then
+					return true
+				else
+					return not context.in_treesitter_capture("comment") and not context.in_syntax_group("comment")
+				end
+			end,
+
 			mapping = cmp.mapping.preset.insert({
 				["<C-Space>"] = cmp.mapping.complete({
 					behaviour = cmp.ConfirmBehavior.Insert,
@@ -85,16 +95,8 @@ return {
 				{ name = "nvim_lsp" },
 				{ name = "buffer" },
 				{ name = "luasnip" },
+				{ name = "nvim_lua" },
 			}),
-
-			--[[ sources = cmp.config.sources({
-        { name = "nvim_lsp" },
-        { name = "luasnip" }
-      }, {
-          { name = "buffer" }
-        })
-      ]]
-			--
 		})
 
 		--[[

@@ -44,17 +44,19 @@ opt.whichwrap:append("<>[]hl")
 -- make leader <space>
 g.mapleader = " "
 
+vim.o.omnifunc = nil
+
 -- disable defaults
-for _, provider in ipairs({"node", "perl", "python3", "ruby"}) do
-  vim.g["loaded_" .. provider .. "_provider"] = 0
+for _, provider in ipairs({ "node", "perl", "python3", "ruby" }) do
+	vim.g["loaded_" .. provider .. "_provider"] = 0
 end
 
 --- autocmds ---
 local autocmd = vim.api.nvim_create_autocmd
 
 autocmd("FileType", {
-  pattern = "qf",
-  callback = function ()
-    vim.opt_local.buflisted = false
-  end
+	pattern = "qf",
+	callback = function()
+		vim.opt_local.buflisted = false
+	end,
 })
