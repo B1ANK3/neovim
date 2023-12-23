@@ -11,11 +11,17 @@ return {
 			"stylua",
 		}
 
-		vim.g.mason_ensure_installed = ensure_installed
+		-- vim.g.mason_ensure_installed = ensure_installed
 	end,
 	config = function()
+		local ensure_installed = {
+			-- nvim defaults
+			"lua-language-server",
+			"stylua",
+		}
+
 		vim.api.nvim_create_user_command("MasonInstallAll", function()
-			vim.cmd("MasonInstall " .. table.concat(vim.g.mason_ensure_installed, " "))
+			vim.cmd("MasonInstall " .. table.concat(ensure_installed, " "))
 		end, {})
 
 		require("mason").setup({
