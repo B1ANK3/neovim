@@ -1,12 +1,11 @@
 return {
 	"akinsho/toggleterm.nvim",
-	enabled = false,
 	cmd = { "ToggleTerm" },
 	init = function()
 		require("core.utils").load_mappings({
 			n = {
 				["<A-i>"] = {
-					"<cmd> ToggleTerm direction=vertical<CR>",
+					"<cmd> ToggleTerm direction=float<CR>",
 					"Toggle floating terminal",
 				},
 				["<A-h>"] = {
@@ -14,14 +13,14 @@ return {
 					"Toggle horizontal terminal",
 				},
 				["<A-v>"] = {
-					"<cmd> ToggleTerm direction=float<CR>",
+					"<cmd> ToggleTerm direction=vertical<CR>",
 					"Toggle vertical terminal",
 				},
 			},
 
 			t = {
 				["<A-i>"] = {
-					"<cmd> ToggleTerm direction=vertical<CR>",
+					"<cmd> ToggleTerm direction=float<CR>",
 					"Toggle floating terminal",
 				},
 				["<A-h>"] = {
@@ -29,7 +28,7 @@ return {
 					"Toggle horizontal terminal",
 				},
 				["<A-v>"] = {
-					"<cmd> ToggleTerm direction=float<CR>",
+					"<cmd> ToggleTerm direction=vertical<CR>",
 					"Toggle vertical terminal",
 				},
 			},
@@ -40,7 +39,7 @@ return {
 			if term.direction == "horizontal" then
 				return 15
 			elseif term.direction == "vertical" then
-				return vim.o.columns * 0.4
+				return vim.o.columns * 0.5 -- make relative including sidebars
 			end
 		end,
 		trim_whitespace = false, -- for whitespace in terminals (python)

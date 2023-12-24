@@ -2,9 +2,19 @@ return {
 	"mhartington/formatter.nvim",
 	cmd = { "Format", "FormatWrite", "FormatLock", "FormatWriteLock" },
 	init = function()
-		vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-			group = vim.api.nvim_create_augroup("__formatter__", { clear = true }),
-			command = ":FormatWrite",
+		-- Removed because having it format after exiting or deleting is annoying
+		-- Rather use a bind to format
+		--vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+		--	group = vim.api.nvim_create_augroup("__formatter__", { clear = true }),
+		--	command = ":FormatWrite",
+		--})
+		require("core.utils").load_mappings({
+			n = {
+				["<leader>fm"] = {
+					"<cmd>FormatWrite<CR>",
+					"Format the current file",
+				},
+			},
 		})
 	end,
 	config = function()

@@ -57,7 +57,8 @@ return {
 			--
 		},
 	},
-	config = function(_, opts)
+	config = function()
+		local luasnip = require("luasnip")
 		local cmp = require("cmp")
 
 		cmp.setup({
@@ -83,6 +84,25 @@ return {
 					behaviour = cmp.ConfirmBehavior.Insert,
 					select = true,
 				}),
+
+				["<Tab>"] = cmp.mapping(function(fallback)
+					if cmp.visible() then
+						cmp.select_next_item({ behaviour = cmp.ConfirmBehavior.Insert })
+					elseif luasnip.expand_or_locally_jumpable() then
+						luasnip.expand_or_jump()
+					else
+						fallback()
+					end
+				end, { "i", "s" }),
+				["<S-Tab>"] = cmp.mapping(function(fallback)
+					if cmp.visible() then
+						cmp.select_prev_item()
+					elseif luasnip.jumpable(-1) then
+						luasnip.jump(-1)
+					else
+						fallback()
+					end
+				end, { "i", "s" }),
 			}),
 
 			snippet = {
@@ -131,24 +151,6 @@ return {
           select = false
         }),
 
-        ["<Tab>"] = cmp.mapping(function (fallback)
-          if cmp.visible() then
-            cmp.select_next_item({behaviour = cmp.ConfirmBehavior.Insert})
-          elseif luasnip.expand_or_locally_jumpable() then
-            luasnip.expand_or_jump()
-          else
-            fallback()
-          end
-        end, { "i", "s" }),
-        ["<S-Tab>"] = cmp.mapping(function (fallback)
-          if cmp.visible() then
-            cmp.select_prev_item()
-          elseif luasnip.jumpable(-1) then
-            luasnip.jump(-1)
-          else
-            fallback()
-          end
-        end, {"i", "s"})
       },
     })
     ]]
