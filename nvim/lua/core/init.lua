@@ -44,7 +44,10 @@ opt.whichwrap:append("<>[]hl")
 -- make leader <space>
 g.mapleader = " "
 
-vim.o.omnifunc = nil
+opt.omnifunc = nil
+
+-- Session saving
+opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions,globals"
 
 -- disable defaults
 for _, provider in ipairs({ "node", "perl", "python3", "ruby" }) do

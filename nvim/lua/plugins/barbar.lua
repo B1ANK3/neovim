@@ -1,5 +1,6 @@
 return {
 	"romgrk/barbar.nvim",
+	-- enabled = false,
 	lazy = false,
 	init = function()
 		vim.g.barbar_auto_setup = false
@@ -27,7 +28,7 @@ return {
 				extensions = false,
 				inactive = false,
 			},
-			highlight_visable = true,
+			highlight_visible = true,
 
 			icons = {
 				gitsigns = {
@@ -63,7 +64,7 @@ return {
 			sidebar_filetypes = {
 				["neo-tree"] = {
 					event = "BufWipeout",
-				},
+				}
 			},
 		})
 	end,

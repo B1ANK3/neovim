@@ -1,6 +1,7 @@
 return {
 	"nvim-neo-tree/neo-tree.nvim",
 	branch = "v3.x",
+	lazy = false,
 	cmd = { "Neotree" },
 	dependencies = {
 		"nvim-lua/plenary.nvim",
@@ -29,6 +30,7 @@ return {
 			enable_git_status = true,
 			enable_diagnostics = true,
 			enable_normal_mode_for_inputs = false,
+			auto_clean_after_session_restore = true,
 
 			open_files_do_not_replace_types = { "terminal", "trouble", "qf" },
 			sort_case_sensitive = false,

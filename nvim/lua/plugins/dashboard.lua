@@ -1,5 +1,6 @@
 return {
 	"nvimdev/dashboard-nvim",
+	--enabled = false,
 	event = "VimEnter",
 	dependencies = {
 		"nvim-tree/nvim-web-devicons",
@@ -17,6 +18,12 @@ return {
 				},
 				-- header = require("ascii").get_random_global(),
 				shortcut = {
+					{
+						desc = "Sessions",
+						group = "@function",
+						action = "SearchSession",
+						key = "s"
+					},
 					{
 						desc = "Lazy Update",
 						group = "@property",

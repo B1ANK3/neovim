@@ -39,7 +39,7 @@ return {
 			if term.direction == "horizontal" then
 				return 15
 			elseif term.direction == "vertical" then
-				return vim.o.columns * 0.5 -- make relative including sidebars
+				return vim.o.columns * 0.4 -- make relative including sidebars
 			end
 		end,
 		trim_whitespace = false, -- for whitespace in terminals (python)
