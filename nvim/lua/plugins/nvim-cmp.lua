@@ -8,13 +8,8 @@ return {
 			dependencies = { "rafamadriz/friendly-snippets" },
 			config = function()
 				require("luasnip.loaders.from_vscode").lazy_load()
-
-				-- nvim/snippets/
-				-- require("luasnip.loaders.from_vscode").lazy_load({paths = "./snippets"})
-
-				-- TODO: Add paths for custom snippets
-				-- require("luasnip.loaders.from_snipmate").load()
-				-- require("luasnip.loaders.from_lua").load()
+				require("luasnip.loaders.from_snipmate").load()
+				require("luasnip.loaders.from_lua").load()
 			end,
 		},
 
@@ -31,30 +26,15 @@ return {
 				require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
 			end,
 		},
+
 		-- sources
 		{
 			"hrsh7th/cmp-nvim-lsp",
 			"saadparwaiz1/cmp_luasnip",
 			"hrsh7th/cmp-buffer",
 			"hrsh7th/cmp-nvim-lua", -- nvim lua autocomplete
-			--[[ "FelipeLema/cmp-async-path"],
-      "hrsh7th/cmp-nvim-lsp-signature-help",
-      "JMarkin/cmp-diag-codes",
-      "pontusk/cmp-sass-variables",
-      {
-        "saecki/crates.nvim",
-        dependencies = { "nvim-lua/plenary.nvim" },
-        event = { "BufRead Cargo.toml" },
-        config = function ()
-          require('crates').setup()
-        end
-      },
-      {
-        "paopaol/cmp-doxygen",
-        dependencies = {"nvim-treesitter/nvim-treesitter", "nvim-treesitter/nvim-treesitter-textobjects"}
-      }
-      ]]
-			--
+			"JMarkin/cmp-diag-codes",
+			"FelipeLema/cmp-async-path",
 		},
 	},
 	config = function()
@@ -84,6 +64,7 @@ return {
 					behaviour = cmp.ConfirmBehavior.Insert,
 					select = true,
 				}),
+				["<C-q>"] = cmp.mapping.abort(),
 
 				["<Tab>"] = cmp.mapping(function(fallback)
 					if cmp.visible() then
@@ -94,6 +75,7 @@ return {
 						fallback()
 					end
 				end, { "i", "s" }),
+
 				["<S-Tab>"] = cmp.mapping(function(fallback)
 					if cmp.visible() then
 						cmp.select_prev_item()
@@ -113,47 +95,12 @@ return {
 
 			sources = cmp.config.sources({
 				{ name = "nvim_lsp" },
-				{ name = "buffer" },
+				{ name = "buffer", keyword_length = 4 },
 				{ name = "luasnip" },
 				{ name = "nvim_lua" },
+				{ name = "async_path", option = { trailing_slash = true } },
+				{ name = "diag-codes", option = { in_comment = true } },
 			}),
 		})
-
-		--[[
-    cmp.setup({
-
-      sources = {
-        { name = "async_path", option = { trailing_slash = true } },
-        { name = "luasnip" },
-        { name = "nvim_lsp" },
-        { name = "nvim_lsp_signature_help" },
-        { name = "diag-codes", option = { in_comment = true } },
-        { name = "nvim_lua" },
-        { name = "sass-variables" },
-        { name = "doxygen" },
-        { name = "buffer" },
-      },
-
-      snippet = {
-        expand = function (args)
-          require('luasnip').lsp_expand(args.body)
-        end
-      },
-
-      mapping = {
-
-        ["<C-Space>"] = cmp.mapping.complete({
-          behaviour = cmp.ConfirmBehavior.Insert,
-          select = true,
-        }),
-        ["<CR>"] = cmp.mapping.complete({
-          behaviour = cmp.ConfirmBehavior.Insert,
-          select = false
-        }),
-
-      },
-    })
-    ]]
-		--
 	end,
 }

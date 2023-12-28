@@ -1,6 +1,59 @@
+-- File contains all plugins related to the LSP
+-- Original: nvim-lsp.lua
 return {
 	"neovim/nvim-lspconfig",
-	dependencies = { "williamboman/mason-lspconfig.nvim", "hrsh7th/cmp-nvim-lsp" },
+	dependencies = {
+
+		-- Mason plugin for installing LSPs and Formatters
+		-- From: mason.lua
+		{
+			"williamboman/mason.nvim",
+			cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUninstall", "MasonUninstallAll", "MasonLog" },
+			init = function()
+				local ensure_installed = {
+					"lua-language-server",
+					"stylua",
+				}
+				vim.api.nvim_create_user_command("MasonInstallAll", function()
+					vim.cmd("MasonInstall " .. table.concat(ensure_installed, " "))
+				end, {})
+			end,
+			opts = {
+				PATH = "append",
+
+				ui = {
+					icons = {
+						package_pending = " ",
+						package_installed = "󰄳 ",
+						package_uninstalled = " 󰚌",
+					},
+
+					keymaps = {
+						toggle_server_expand = "<CR>",
+						install_server = "i",
+						update_server = "u",
+						check_server_version = "c",
+						update_all_servers = "U",
+						check_outdated_servers = "C",
+						uninstall_server = "X",
+						cancel_installation = "<C-c>",
+					},
+				},
+
+				max_concurrent_installers = 10,
+			},
+		},
+
+		-- From: mason-lspconfig.lua
+		{
+			"williamboman/mason-lspconfig.nvim",
+			dependencies = { "williamboman/mason.nvim" },
+			opts = {
+				ensure_installed = { "lua_ls" },
+				automatic_installation = true,
+			},
+		},
+	},
 	init = function()
 		require("core.utils").lazy_load_on_bufent("nvim-lspconfig")
 	end,
@@ -133,7 +186,8 @@ return {
 			end
 		end
 
-		local lsp_capabilities = vim.lsp.protocol.make_client_capabilities() --require("cmp_nvim_lsp").default_capabilities()
+		local lsp_capabilities = vim.lsp.protocol.make_client_capabilities()
+		lsp_capabilities = require("cmp_nvim_lsp").default_capabilities(lsp_capabilities)
 
 		-- Automatic LSP installer and setup
 		-- check :h mason-lspconfig-automatic-server-setup

@@ -14,7 +14,7 @@ return {
 		},
 		scope = {
 			show_start = false,
-			show_exact_scope = true,
+			show_exact_scope = false,
 		},
 		exclude = {
 			filetypes = {

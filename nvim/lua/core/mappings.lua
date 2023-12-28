@@ -24,9 +24,6 @@ local mappings = {
 		-- ["<A-<UP>>"] = {"", ""},
 		-- ["<A-<DOWN>>"] = {"", ""},
 
-		-- Comments
-		["<C-/>"] = { ":lua vim.notify('Commenting not implemented',3) <CR>", "Comment a line" },
-
 		-- Quick visual mode
 		["<A-H>"] = { "<ve>", "Select next word" },
 		["<A-L>"] = { "<vb>", "Select previous word" },
