@@ -53,9 +53,6 @@ return {
 
 	{
 		"nvim-lualine/lualine.nvim",
-		dependencies = {
-			"rmagatti/auto-session",
-		},
 		lazy = false,
 		opts = {
 			options = {
@@ -104,6 +101,19 @@ return {
 
 			vim.notify = nvim_notify
 		end,
+	},
+
+	{
+		"petertriho/nvim-scrollbar",
+		event = { "BufEnter" },
+		dependencies = {
+			"lewis6991/gitsigns.nvim",
+		},
+		opts = {
+			handlers = {
+				gitsigns = true,
+			},
+		},
 	},
 
 	-- tabs
