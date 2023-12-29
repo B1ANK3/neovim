@@ -20,7 +20,7 @@ return {
 				{
 					desc = "Sessions",
 					group = "@function",
-					action = "SearchSession",
+					action = "Telescope session-lens",
 					key = "s",
 				},
 				{

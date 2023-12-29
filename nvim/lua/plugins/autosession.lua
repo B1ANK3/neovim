@@ -1,37 +1,32 @@
 return {
 	"rmagatti/auto-session",
-	enabled = false,
-	lazy = false,
 	cmd = { "SessionSave", "SessionRestore", "SessionRestoreFromFile", "SessionDelete", "Autosession" },
 	dependencies = {
-		{
-			"rmagatti/session-lens",
-			cmd = { "SearchSession" },
-			dependencies = { "nvim-telescope/telescope.nvim" },
-			opts = {
-				load_on_startup = true,
-				theme_conf = { border = true },
-				previewer = false,
-				-- path_display = { "shorten" }
-			},
-		},
+		"nvim-telescope/telescope.nvim",
 	},
 	init = function() end,
 	config = function()
-		-- https://github.com/romgrk/barbar.nvim#integrations
 		require("auto-session").setup({
 			log_level = vim.log.levels.ERROR,
 			auto_session_suppress_dirs = { "/", "~/", "~/Downloads" },
 			auto_save_enabled = true,
 			auto_restore_enabled = true,
-			auto_session_enable_last_session = false, -- vim.loop.cwd() == vim.loop.os_homedir(),
+			auto_session_enable_last_session = false,
 
-			-- Neotree doesn't have proper support for sessions so we close it before exiting
-			pre_save_cmds = {
-				"Neotree close",
+			session_lens = {
+				buftypes_to_ignore = {
+					-- "neo-tree"
+				},
+				load_on_setup = true,
+				theme_conf = { border = true },
+				previewer = false,
 			},
 
-			post_restore_cmds = {},
+			pre_save_cmds = {
+				"Neotree close"
+			}
 		})
+
+		require("telescope").load_extension("session-lens")
 	end,
 }

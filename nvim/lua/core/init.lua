@@ -47,7 +47,7 @@ g.mapleader = " "
 opt.omnifunc = nil
 
 -- Session saving
-opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions,globals"
+opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
 -- disable defaults
 for _, provider in ipairs({ "node", "perl", "python3", "ruby" }) do

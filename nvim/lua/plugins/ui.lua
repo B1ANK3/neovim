@@ -34,12 +34,12 @@ return {
 
 				i = {
 					["<C-/>"] = {
-						function ()
+						function()
 							require("Comment.api").toggle.linewise.current()
 						end,
-						"Toggle comment"
-					}
-				}
+						"Toggle comment",
+					},
+				},
 			})
 		end,
 		opts = {},
@@ -53,6 +53,9 @@ return {
 
 	{
 		"nvim-lualine/lualine.nvim",
+		dependencies = {
+			"rmagatti/auto-session",
+		},
 		lazy = false,
 		opts = {
 			options = {
@@ -65,6 +68,13 @@ return {
 	{
 		"j-hui/fidget.nvim",
 		event = "VeryLazy",
+		init = function()
+			vim.api.nvim_create_user_command(
+				"Notifications",
+				"Fidget history",
+				{ desc = "Show previous notifications" }
+			)
+		end,
 		opts = {
 			progress = {
 				display = {
@@ -139,9 +149,9 @@ return {
 						separator = true,
 					},
 					{
-						filetype = 'Outline',
+						filetype = "Outline",
 						text = "Symbol Outline",
-					}
+					},
 				},
 				color_icons = true,
 				show_close_icon = true,
