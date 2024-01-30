@@ -2,6 +2,7 @@ return {
 	{
 		-- https://github.com/mfussenegger/nvim-lint
 		"mfussenegger/nvim-lint",
+		enabled = false,
 		event = {"BufWrite"},
 		init = function()
 			vim.api.nvim_create_autocmd({ "BufWritePost" }, {

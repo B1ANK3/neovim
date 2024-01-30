@@ -1,5 +1,6 @@
 return {
 	"simrat39/symbols-outline.nvim",
+	enabled = false,
 	cmd = { "SymbolsOutline", "SymbolsOutlineOpen", "SymbolsOutlineClose" },
 	dependencies = {
 		"mortepau/codicons.nvim",

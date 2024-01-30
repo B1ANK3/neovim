@@ -33,9 +33,6 @@ return {
 		},
 	},
 	config = function(_, opts)
-		-- TODO: Add rainbow colors
-		-- https://github.com/lukas-reineke/indent-blankline.nvim#rainbow-delimitersnvim-integration
-
 		-- only load keys when plugin is active
 		require("core.utils").load_mappings({
 			n = {

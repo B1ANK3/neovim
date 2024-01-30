@@ -6,6 +6,7 @@
 
 return {
 	"mfussenegger/nvim-dap",
+	enabled = false,
 	init = function()
 		-- TODO: Check VSCode mappings
 		require("core.utils").load_mappings({

@@ -2,6 +2,7 @@
 -- Can't reliably replicate
 return {
 	"aznhe21/actions-preview.nvim",
+	enabled = false,
 	dependencies = { "nvim-telescope/telescope.nvim" },
 	keys = { "<leader>ca" },
 	init = function()

@@ -6,6 +6,7 @@
 
 return {
 	"rcarriga/nvim-dap-ui",
+	enabled = false,
 	dependencies = { "mfussenegger/nvim-dap" },
 	init = function()
 		-- vim.notify("nvim-dap-ui has not been fully setup yet", 3)

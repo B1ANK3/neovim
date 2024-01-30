@@ -30,6 +30,9 @@ return {
 				prof.start("*")
 			end
 		end
-		vim.keymap.set("", "<f2>", toggle_profile)
+
+		if should_profile then
+			vim.keymap.set("", "<f3>", toggle_profile)
+		end
 	end,
 }

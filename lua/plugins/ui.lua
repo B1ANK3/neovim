@@ -75,7 +75,7 @@ return {
 		opts = {
 			progress = {
 				display = {
-					done_ttl = 5, -- 5s for notification
+					done_ttl = 20, -- 20s for notification
 				},
 			},
 			notification = {
@@ -84,27 +84,9 @@ return {
 		},
 	},
 
-	-- alternative
-	{
-		"rcarriga/nvim-notify",
-		enabled = false,
-		event = "VeryLazy",
-		config = function()
-			local nvim_notify = require("notify")
-			nvim_notify.setup({
-				-- Animation style
-				stages = "fade_in_slide_out",
-				-- Default timeout for notifications
-				timeout = 5000,
-				background_colour = "#2E3440",
-			})
-
-			vim.notify = nvim_notify
-		end,
-	},
-
 	{
 		"petertriho/nvim-scrollbar",
+		enabled = false,
 		event = { "BufEnter" },
 		dependencies = {
 			"lewis6991/gitsigns.nvim",
@@ -176,6 +158,7 @@ return {
 	-- extra features for commands
 	{
 		"gelguy/wilder.nvim",
+		enabled = false,
 		keys = { ":", "/", "?" },
 		dependencies = { "roxma/nvim-yarp" },
 		config = function()
@@ -216,10 +199,11 @@ return {
 	{
 		"folke/which-key.nvim",
 		keys = { "<leader>", '"', "'", "`", "c", "v", "g" },
+		cmd = { "WhichKey" },
 		init = function()
 			require("core.utils").load_mappings({
 				n = {
-					["<leader>wK"] = {
+					["<leader>"] = {
 						function()
 							vim.cmd("WhichKey")
 						end,

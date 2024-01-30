@@ -1,6 +1,6 @@
 local export = {}
 
-local function table_to_string(tbl)
+export.table_to_string = function (tbl)
     local result = "{"
     for k, v in pairs(tbl) do
         -- Check the key type (ignore any numerical keys - assume its an array)
@@ -10,7 +10,7 @@ local function table_to_string(tbl)
 
         -- Check the value type
         if type(v) == "table" then
-            result = result..table_to_string(v)
+            result = result..export.table_to_string(v)
         elseif type(v) == "boolean" then
             result = result..tostring(v)
         elseif type(v) == "function" then

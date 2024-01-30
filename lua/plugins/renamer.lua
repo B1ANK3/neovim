@@ -12,7 +12,8 @@ return {
 				local opts = { buffer = ev.buf }
 				require("core.utils").load_mappings({
 					n = {
-						["<leader>ra"] = {
+						["<f2>"] = {
+							-- ["<leader>ra"] = {
 							function()
 								require("renamer").rename()
 							end,
@@ -21,7 +22,8 @@ return {
 					},
 
 					v = {
-						["<leader>ra"] = {
+						["<f2>"] = {
+							-- ["<leader>ra"] = {
 							function()
 								require("renamer").rename()
 							end,
@@ -30,7 +32,7 @@ return {
 					},
 
 					i = {
-						["<F2>"] = {
+						["<f2>"] = {
 							function()
 								require("renamer").rename()
 							end,
