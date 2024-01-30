@@ -21,6 +21,7 @@ return {
 				["<leader>gt"] = { "<cmd> Telescope git_status <CR>", "Git status" },
 
 				["<leader>ma"] = { "<cmd> Telescope marks <CR>", "telescope bookmarks" },
+				["<leader>fs"] = { "<cmd> Telescope session-lens <CR>", "telescope session-lens" },
 			},
 		})
 	end,
