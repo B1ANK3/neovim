@@ -49,10 +49,10 @@ return {
 				require("formatter.filetypes.java").clangformat,
 			},
 			javascript = {
-				require("formatter.filetypes.javascript").biome,
+				require("formatter.filetypes.javascript").prettier,
 			},
 			json = {
-				require("formatter.filetypes.json").biome,
+				require("formatter.filetypes.json").prettier,
 			},
 			kotlin = {
 				require("formatter.filetypes.kotlin").ktlint,
@@ -94,7 +94,7 @@ return {
 			-- Add the filetype and import the default config or create a custom one
 			-- https://github.com/mhartington/formatter.nvim/tree/master/lua/formatter/filetypes
 			typescript = {
-				require("formatter.filetypes.typescript").biome,
+				require("formatter.filetypes.typescript").prettier,
 			},
 			vue = {
 				require("formatter.filetypes.vue").prettier,

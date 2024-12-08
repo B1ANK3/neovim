@@ -19,7 +19,7 @@ return {
 				c = { "cpplint", "cspell", "typos" },
 				cpp = { "cpplint", "cspell", "typos" },
 				lua = { "luacheck", "typos" },
-				typescript = { "biomejs", "typos" },
+				typescript = { "prettier", "typos" },
 			}
 		end,
 	},
