@@ -1,51 +1,23 @@
-require("core")
+-- Set <space> as the leader key
+-- See `:help mapleader`
+--  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
 
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+-- Set to true if you have a Nerd Font installed and selected in the terminal
+vim.g.have_nerd_font = true
 
--- bootstrap nvim
-if not vim.loop.fs_stat(lazypath) then
-	require("core.bootstrap").lazy(lazypath)
-end
-vim.opt.rtp:prepend(lazypath)
+-- [[ Setting options ]]
+require 'options'
 
-local config = require("core.utils").load_config()
+-- [[ Basic Keymaps ]]
+require 'keymaps'
 
--- local vim_conf_dir = vim.fn.stdpath("config") .. "/vim"
--- local vim_files = vim.fn.readdir(vim_conf_dir, [[v:val =~ '\.vim$']])
--- for _, name in pairs(vim_files) do
--- local path = string.format("%s/%s", vim_conf_dir, name)
--- local source = "source " .. path
--- vim.cmd(source)
--- end
+-- [[ Install `lazy.nvim` plugin manager ]]
+require 'lazy-bootstrap'
 
--- setup plugins
-require("lazy").setup(config.plugins, config.lazy_config)
+-- [[ Configure and install plugins ]]
+require 'lazy-plugins'
 
----
--- Profiling
-local should_profile = os.getenv("NVIM_PROFILE")
-if should_profile then
-	require("profile").instrument_autocmds()
-	if should_profile:lower():match("^start") then
-		require("profile").start("*")
-	else
-		require("profile").instrument("*")
-	end
-end
-
-local function toggle_profile()
-	local prof = require("profile")
-	if prof.is_recording() then
-		prof.stop()
-		vim.ui.input({ prompt = "Save profile to:", completion = "file", default = "profile.json" }, function(filename)
-			if filename then
-				prof.export(filename)
-				vim.notify(string.format("Wrote %s", filename))
-			end
-		end)
-	else
-		prof.start("*")
-	end
-end
-vim.keymap.set("", "<f2>", toggle_profile)
-----
+-- The line beneath this is called `modeline`. See `:help modeline`
+-- vim: ts=2 sts=2 sw=2 et
