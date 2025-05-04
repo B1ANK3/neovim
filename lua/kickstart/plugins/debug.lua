@@ -9,7 +9,7 @@
 return {
     'mfussenegger/nvim-dap',
     event = "VeryLazy",
-    enabled = false,
+    enabled = true,
     dependencies = {
         -- Creates a beautiful debugger UI
         'rcarriga/nvim-dap-ui',
@@ -17,12 +17,16 @@ return {
         -- Required dependency for nvim-dap-ui
         'nvim-neotest/nvim-nio',
 
+        -- Virtual Text
+        'theHamsta/nvim-dap-virtual-text',
+
         -- Installs the debug adapters for you
         'williamboman/mason.nvim',
         'jay-babu/mason-nvim-dap.nvim',
 
         -- Add your own debuggers here
-        'leoluz/nvim-dap-go',
+        -- 'leoluz/nvim-dap-go',
+        'simrat39/rust-tools.nvim' -- Rust
     },
     keys = function(_, keys)
         local dap = require 'dap'
@@ -46,7 +50,7 @@ return {
             unpack(keys),
         }
     end,
-    --[[ config = function()
+    config = function()
         local dap = require 'dap'
         local dapui = require 'dapui'
 
@@ -63,7 +67,8 @@ return {
             -- online, please don't ask me how to install them :)
             ensure_installed = {
                 -- Update this to ensure that you have the debuggers for the langs you want
-                'delve',
+                -- 'delve',
+                'rust-analyzer'
             },
         }
 
@@ -93,7 +98,32 @@ return {
         dap.listeners.before.event_terminated['dapui_config'] = dapui.close
         dap.listeners.before.event_exited['dapui_config'] = dapui.close
 
+        -- C/C++/Rust
+        dap.adapters.codelldb = {
+            type = "executable",
+            command = "codelldb",
+        }
+
+        dap.configurations.c = { {
+            name = "Launch file",
+            type = "codelldb",
+            request = "launch",
+            program = function()
+                return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+            end,
+            args = function()
+                local argument_string = vim.fn.input('Program arguments: ')
+                return vim.fn.split(argument_string, " ", true)
+            end,
+            cwd = '${workspaceFolder}',
+            stopOnEntry = false,
+        } }
+        dap.configurations.cpp = dap.configurations.c
+        dap.configurations.rust = dap.configurations.c
+
+
         -- Install golang specific config
+        --[[
         require('dap-go').setup {
             delve = {
                 -- On Windows delve must be run attached or it crashes.
@@ -101,6 +131,6 @@ return {
                 detached = vim.fn.has 'win32' == 0,
             },
         }
+        ]] --
     end,
-    ]] --
 }

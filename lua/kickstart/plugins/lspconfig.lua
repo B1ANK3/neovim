@@ -133,6 +133,8 @@ return {
           --  Most Language Servers support renaming across files, etc.
           --  Original: <leader>rn
           map('<C-r>', vim.lsp.buf.rename, '[R]ename')
+          -- Alt mapping
+          map('<leader>rr', vim.lsp.buf.rename, '[R]ename')
 
           -- Execute a code action, usually your cursor needs to be on top of an error
           -- or a suggestion from your LSP for this to activate.
@@ -153,7 +155,7 @@ return {
             vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
               buffer = event.buf,
               group = highlight_augroup,
-              callback = vim.lsp.buf.document_highlight,
+             callback = vim.lsp.buf.document_highlight,
             })
 
             vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
